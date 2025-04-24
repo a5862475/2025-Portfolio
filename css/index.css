@@ -115,7 +115,14 @@ h1,h2,h3,h4,h5,span,p{
 }
 @media screen and (max-width:992px) {
     .heading h1 {
-        font-size: 60px ;
+        font-size: 50px ;
+        letter-spacing: 0px;
+    }    
+}
+@media screen and (max-width:426px) {
+    .heading h1 {
+        font-size: 30px ;
+        letter-spacing: 0px;
     }    
 }
 .list dl dt h1 a{
