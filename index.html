@@ -117,7 +117,7 @@
                 </div>
                 <div class="img-container">
                     <a href="./composite.html" class="img-tag" data-note="合成">
-                        <img class="img-hover img-tag" src="./img/./2_composite_universe_1.png"  alt=""/>
+                        <img class="img-hover img-tag" src="./img/./2_composite_universe_1.jpg"  alt=""/>
                     </a>
                 </div>
                 <div class="img-container">
@@ -198,6 +198,7 @@
     <script type="module">
         import * as THREE from 'three';
         import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+        import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 
         var scene = new THREE.Scene();
         var camera = new THREE.PerspectiveCamera(60, 1, 1, 1000);
@@ -224,28 +225,33 @@
         let base = new THREE.Object3D();
         scene.add(base);
 
-        const loader = new GLTFLoader().setPath( 'model/');
+        const dracoLoader = new DRACOLoader();
+        dracoLoader.setDecoderPath( 'js/jsm/libs/draco/gltf/' );
+
+        const loader = new GLTFLoader();
+        loader.setDRACOLoader( dracoLoader );
+        loader.setPath( 'model/' );
         loader.load( 'laptop.glb', function ( gltf ) {
             gltf.scene.position.x = 0.3;
             gltf.scene.position.y = -0.2;
             gltf.scene.rotation.x = 0.4;
             gltf.scene.rotation.y = 0.3;
-            gltf.scene.scale.setScalar(0.35);
+            gltf.scene.scale.setScalar(5);
             base.add( gltf.scene );
         } );
-        loader.load( 'interstellar.glb', function ( gltf ) {
+        loader.load( 'interstellar_1.glb', function ( gltf ) {
             gltf.scene.position.x = -1.8;
             gltf.scene.position.y = -1.5;
             gltf.scene.rotation.y = -0.2;
-            gltf.scene.scale.setScalar(0.27);
+            gltf.scene.scale.setScalar(0.28);
             base.add( gltf.scene );
         } );
-        loader.load( 'phone.glb', function ( gltf ) {
+        loader.load( 'phone_1.glb', function ( gltf ) {
             gltf.scene.position.x = -1.5;
             gltf.scene.rotation.x = -0.5;
             gltf.scene.rotation.y = -0.4;
             gltf.scene.rotation.z = -0.2;
-            gltf.scene.scale.setScalar(0.25);
+            gltf.scene.scale.setScalar(0.27);
             base.add( gltf.scene );
         } );
 
@@ -268,8 +274,6 @@
                 camera.aspect = canvas.clientWidth / canvas.clientHeight;
                 camera.updateProjectionMatrix();
             }
-        // renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        // renderer.toneMappingExposure = 1.5;
         renderer.render(scene, camera);
         });
 
